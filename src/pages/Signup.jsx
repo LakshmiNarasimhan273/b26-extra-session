@@ -1,32 +1,37 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 function Signup() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const apiUrl = "http://localhost:3001/users"
+
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
+  // User Registration Logic
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const res = await axios.get(
-      `http://localhost:3001/users?email=${email}`
-    );
+    // logic - 1
+    // if the email exists in our db - the response length count is 1
+    // if not the response length value is 0
+    const response = await axios.get(`${apiUrl}?email=${email}`)
 
-    if (res.data.length > 0) {
-      alert("User already exists!");
+    if(response.data.length > 0){
+      alert("User account already exists");
       return;
     }
 
-    await axios.post("http://localhost:3001/users", {
-      email,
-      password,
+    await axios.post(`${apiUrl}`, {
+      email, password
     });
-
-    alert("Signup successful!");
+    alert("Signup successful");
     navigate("/");
-  };
+  }
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#5e558a] to-purple-300 px-4">

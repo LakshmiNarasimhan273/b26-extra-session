@@ -3,19 +3,11 @@ import { useEffect } from "react";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/");
-  };
-
+  }
   return (
     <div className="flex h-screen bg-gray-100">
 
@@ -39,8 +31,8 @@ function Dashboard() {
 
         <div className="p-4 border-t border-purple-300">
           <button
-            onClick={handleLogout}
             className="w-full bg-red-300 text-red-700 font-bold cursor-pointer py-2 rounded hover:opacity-90 transition"
+            onClick={handleLogout}
           >
             Logout
           </button>
@@ -57,12 +49,12 @@ function Dashboard() {
           </h1>
 
           <div className="flex items-center gap-4">
-            <span className="text-gray-600 text-sm">
-              {user?.email}
+            <span className="text-gray-600 font-bold text-sm">
+              Narasimhan
             </span>
 
             <div className="w-10 h-10 rounded-full bg-[#5e558a] text-white flex items-center justify-center font-bold">
-              {user?.email?.charAt(0).toUpperCase()}
+              N
             </div>
           </div>
         </header>

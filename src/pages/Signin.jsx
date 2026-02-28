@@ -1,8 +1,11 @@
-import { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signin() {
+
+    const apiUrl = "http://localhost:3001/users"
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -10,17 +13,17 @@ function Signin() {
   const handleSignin = async (e) => {
     e.preventDefault();
 
-    const res = await axios.get(
-      `http://localhost:3001/users?email=${email}&password=${password}`
-    );
+    // logic
+    const response = await axios.get(`${apiUrl}?email=${email}&password=${password}`);
 
-    if (res.data.length > 0) {
-      localStorage.setItem("user", JSON.stringify(res.data[0]));
+    if(response.data.length > 0){
+      localStorage.setItem("user", JSON.stringify(response.data[0]));
       navigate("/dashboard");
-    } else {
-      alert("Invalid credentials!");
+    }else{
+      alert("Invalid Credentials");
     }
-  };
+  }
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#5e558a] to-purple-300 px-4">
@@ -48,9 +51,9 @@ function Signin() {
               </label>
               <input
                 type="email"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
                 className="w-full border-b-2 border-gray-300 focus:border-[#5e558a] outline-none py-2 transition"
                 placeholder="Enter your email"
               />
@@ -62,9 +65,9 @@ function Signin() {
               </label>
               <input
                 type="password"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
                 className="w-full border-b-2 border-gray-300 focus:border-[#5e558a] outline-none py-2 transition"
                 placeholder="Enter your password"
               />

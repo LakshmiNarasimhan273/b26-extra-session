@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 function App() {
   return (
@@ -10,14 +10,7 @@ function App() {
       <Route path="/" element={<Signin />} />
       <Route path="/signup" element={<Signup />} />
       
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/dashboard" element={<ProtectedRoutes><Dashboard /></ProtectedRoutes>} />
     </Routes>
   );
 }
